@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
 
     android:orientation="vertical"
     android:layout_column="2">
@@ -16,6 +17,8 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@color/colorPrimary"
+
             android:layout_height="wrap_content"
             android:padding="8dp">
 
@@ -39,7 +42,6 @@
                 android:alpha="0.8"
                 android:background="@color/primaryColor"
                 android:padding="16dp"
-                android:text="THE MOVIE"
                 android:textAlignment="center"
                 android:textSize="16sp"
                 android:textColor="@color/primaryTextColor"

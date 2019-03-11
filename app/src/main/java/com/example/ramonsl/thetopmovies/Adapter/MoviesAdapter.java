@@ -1,7 +1,7 @@
 package com.example.ramonsl.thetopmovies.Adapter;
+
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ramonsl.thetopmovies.Data.Movie;
+import com.example.ramonsl.thetopmovies.Movies_detail;
 import com.example.ramonsl.thetopmovies.R;
 import com.squareup.picasso.Picasso;
 
@@ -23,15 +24,13 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieAdapt
     private  final String BASE_IMG="https://image.tmdb.org/t/p/w500/";
 
     private ArrayList<Movie> mMoviesData;
-
+    Context context;
     @NonNull
     @Override
     public MovieAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        Context context = viewGroup.getContext();
+         context = viewGroup.getContext();
         int layoutIdForListItens;
-
         layoutIdForListItens = R.layout.movie_list_item_par;
-
 
         Log.e("COUNT",String.valueOf(i));
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -57,7 +56,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieAdapt
        return mMoviesData.size();
     }
 
-    public class MovieAdapterViewHolder extends RecyclerView.ViewHolder {
+    public class MovieAdapterViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener {
 
        public final TextView mMovieTitle;
        public final ImageView mIvPoster;
@@ -66,8 +65,19 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieAdapt
             super(view);
             mMovieTitle =  view.findViewById(R.id.tv_movie_title);
             mIvPoster =  view.findViewById(R.id.iv_poster);
+            view.setOnClickListener(this);
         }
-      }
+
+        @Override
+        public void onClick(View v) {
+
+            Intent intent = new Intent(v.getContext(), Movies_detail.class);
+            Movie movie = mMoviesData.get(getAdapterPosition());
+            intent.putExtra("movie",movie);
+            context.startActivity(intent);
+
+        }
+    }
 
       public void setMovieData(ArrayList<Movie> data){
         mMoviesData=data;

@@ -6,16 +6,20 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_top"
-        android:icon="@drawable/rating_white"
+        android:icon="@drawable/ic_action_rating"
         android:orderInCategory="1"
         android:iconTint="@color/primaryTextColor"
-
         android:title="@string/action_top"
+        android:tooltipText="@string/action_top_tool"
+        android:contentDescription="@string/action_top"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_pop"
         android:orderInCategory="1"
-        android:icon="@drawable/popularity_white"
+        android:tooltipText="@string/action_pop_tool"
+
+        android:contentDescription="@string/action_pop"
+        android:icon="@drawable/ic_action_popular"
         android:title="@string/action_pop"
         app:showAsAction="ifRoom"/>
 </menu>

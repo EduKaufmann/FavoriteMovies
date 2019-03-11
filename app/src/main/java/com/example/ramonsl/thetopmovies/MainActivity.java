@@ -34,43 +34,29 @@ public class MainActivity extends AppCompatActivity {
     private static final String API_KEY = "d15439ba9445688264047fbb91fce4c4";
     private MoviesDTO mList;
     private CoordinatorLayout coordinatorLayout;
-
-
     private RecyclerView mRecyclerView;
     private MoviesAdapter mMovieAdapter;
     private TextView mErrorMessageDisplay;
     private ProgressBar mLoadingIndicator;
-    private ArrayList<Movie> dataMovies;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mRecyclerView = findViewById(R.id.recyclerview_movies);
         coordinatorLayout = findViewById(R.id.coordinatorLayout);
-
-
+        mErrorMessageDisplay = findViewById(R.id.tv_error);
         GridLayoutManager layoutManager = new GridLayoutManager(this, numberOfColumns(), GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
-
         mMovieAdapter = new MoviesAdapter();
         mRecyclerView.setAdapter(mMovieAdapter);
-
-
         mLoadingIndicator = findViewById(R.id.pb_loading_indicator);
-
         if (VerificaConexao(this)) {
             getPopularMovies();
-
-
         } else {
-            showErrorMessage("Ative sua conexão de dados ou WIFI");
+            showErrorMessage(getString(R.string.error_internet));
         }
-
-
     }
 
     private void showErrorMessage(String msg) {
@@ -91,23 +77,21 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful() == true) {
                     if (response.body() != null) {
                         mList = response.body();
-
                     }
 
                     mMovieAdapter.setMovieData((ArrayList<Movie>) mList.getMovies());
                     hideProgressBar();
 
                 } else {
-                    showErrorMessage("Indiponibilidade de buscar os filmes");
+                    showErrorMessage(getString(R.string.error_indiponivel));
+                    Log.i("CALLBACK", response.message());
                 }
-
-
             }
 
             @Override
             public void onFailure(Call<MoviesDTO> call, Throwable t) {
                 Log.e("CALLBACK", t.getMessage());
-                showErrorMessage("Erro na requisição");
+                showErrorMessage(getString(R.string.error_request));
             }
         });
     }
@@ -116,8 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
         showProgressBar();
         Call<MoviesDTO> call = new RetrofitConfig().get().retriveTopRatedMovies(API_KEY);
-
-
         call.enqueue(new Callback<MoviesDTO>() {
             @Override
             public void onResponse(Call<MoviesDTO> call, Response<MoviesDTO> response) {
@@ -129,17 +111,15 @@ public class MainActivity extends AppCompatActivity {
                     mMovieAdapter.setMovieData((ArrayList<Movie>) mList.getMovies());
                     hideProgressBar();
                 } else {
-                    showErrorMessage("Indiponibilidade de buscar os filmes");
+                    showErrorMessage(getString(R.string.error_indiponivel));
                 }
             }
 
             @Override
             public void onFailure(Call<MoviesDTO> call, Throwable t) {
                 Log.e("CALLBACK", t.getMessage());
-                showErrorMessage("Erro na requisição");
+                showErrorMessage(getString(R.string.error_request));
             }
-
-
         });
 
     }
@@ -166,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_top) {
 
 
-
             getTopRatedMovies();
             hideProgressBar();
             return true;
@@ -178,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
     private int numberOfColumns() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        // You can change this divider to adjust the size of the poster
         int widthDivider = 400;
         int width = displayMetrics.widthPixels;
         int nColumns = width / widthDivider;
