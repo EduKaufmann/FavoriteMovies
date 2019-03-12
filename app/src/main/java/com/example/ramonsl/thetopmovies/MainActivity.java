@@ -31,7 +31,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
 
-    private static final String API_KEY = "d15439ba9445688264047fbb91fce4c4";
+    //private static final String API_KEY = "d15439ba9445688264047fbb91fce4c4";
+    private static final String API_KEY = BuildConfig.API_KEY;
     private MoviesDTO mList;
     private CoordinatorLayout coordinatorLayout;
     private RecyclerView mRecyclerView;
