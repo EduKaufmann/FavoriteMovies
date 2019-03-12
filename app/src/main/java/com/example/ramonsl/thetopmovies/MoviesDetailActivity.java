@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.example.ramonsl.thetopmovies.Data.Movie;
 import com.squareup.picasso.Picasso;
 
-public class Movies_detail extends AppCompatActivity {
+public class MoviesDetailActivity extends AppCompatActivity {
 
 
     private final String BASE_IMG = "https://image.tmdb.org/t/p/w500/";

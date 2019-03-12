@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ramonsl.thetopmovies.Data.Movie;
-import com.example.ramonsl.thetopmovies.Movies_detail;
+import com.example.ramonsl.thetopmovies.MoviesDetailActivity;
 import com.example.ramonsl.thetopmovies.R;
 import com.squareup.picasso.Picasso;
 
@@ -71,7 +71,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieAdapt
         @Override
         public void onClick(View v) {
 
-            Intent intent = new Intent(v.getContext(), Movies_detail.class);
+            Intent intent = new Intent(v.getContext(), MoviesDetailActivity.class);
             Movie movie = mMoviesData.get(getAdapterPosition());
             intent.putExtra("movie",movie);
             context.startActivity(intent);
